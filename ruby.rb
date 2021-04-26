@@ -13,6 +13,15 @@ prices = parse_page.css('.product-card__price')
   puts "# #{index}: #{names[index].text} --- #{prices[index].text}"
 end
 
+doorsopen = HTTParty.get('https://www.doorsopen.co/jobs/?l=London%2C%20UK&p=12')
+parse_page = Nokogiri::HTML(doorsopen)
+
+jobs = parse_page.css('.media-heading')
+
+(0...jobs.size).each do |index|
+  puts "# #{index}: #{jobs[index].text}"
+end
+
 # names.each do |name|
 #   puts name.text
 # end
