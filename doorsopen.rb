@@ -5,9 +5,13 @@ require 'webdrivers/chromedriver'
 require 'byebug'
 
 browser = Watir::Browser.new
-browser.goto 'https://www.doorsopen.co/jobs/?q=&l=UK'
-browser.button(text: 'Load more').click
-sleep 1
+browser.goto 'https://www.doorsopen.co/jobs/?q=usa'
+
+while browser.button(text: 'Load more').present?
+  browser.button(text: 'Load more').click
+  sleep 1
+end
+
 parse_page = Nokogiri::HTML(browser.html)
 job_listings = parse_page.css('.listing-item') # 36
 jobs = []
