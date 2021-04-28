@@ -5,7 +5,7 @@ require 'webdrivers/chromedriver'
 require 'byebug'
 
 browser = Watir::Browser.new
-browser.goto 'https://www.doorsopen.co/jobs/?q=usa'
+browser.goto 'https://www.doorsopen.co/jobs/?q=uk'
 
 while browser.button(text: 'Load more').present?
   browser.button(text: 'Load more').click
@@ -23,12 +23,12 @@ job_listings.each do |job_listing|
     location: job_listing.css('.listing-item__info--item-location').text.strip,
     short_desc: job_listing.css('.listing-item__desc').text,
     link: job_listing.css('.media-body').css('a')[0].attributes['href'].value,
-    long_desc: Nokogiri::HTML(HTTParty.get(job_listings[0].css('.media-body').css('a')[0].attributes['href'].value)).css('.container').css('.details-body__content').text
+    long_desc: Nokogiri::HTML(HTTParty.get(job_listing.css('.media-body').css('a')[0].attributes['href'].value)).css('.container').css('.details-body__content').text
   }
 
   puts job
   jobs << job
 end
 
-# byebug
-# sleep 10
+byebug
+sleep 10
